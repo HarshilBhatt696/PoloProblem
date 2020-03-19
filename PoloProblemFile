@@ -1,0 +1,337 @@
+import UIKit
+
+
+// 99977999
+func Check(_ Integer : String ) -> Bool {
+    let Strings = Array(Integer)
+    var Reversed =  [Character]()
+    for n in Integer {
+        //Strings.append(n) // Appends at the last item
+        Reversed.insert(n, at: 0)
+    }
+     
+  
+    var Palo = false
+    for n in Strings.enumerated() {
+        
+        if Strings[n.offset] == Reversed[n.offset] {
+            Palo = true
+        } else {
+            Palo = false
+            break
+        }
+        
+    }
+    return Palo
+    
+}
+
+
+func CheckIfFirstEndSame(Number : String, Limit : Int) -> String {
+    // If limit is one - Check if front and end are same - If not then change one of them to the highest one and then check if its palo or else return -1
+    var FirstDigit = Int(String(Number.first!))!
+    var LastDigit = Int(String(Number.last!))!
+    
+    
+    var Arrays = Array(Number)
+    
+//    for n in Number {
+//        Array.append(n)
+//    }
+    
+    
+    //if Limit == 1 {
+       // if !Check(Number) {
+            
+            
+            if (FirstDigit != LastDigit ) {
+                if (FirstDigit > LastDigit) {
+                    LastDigit = FirstDigit
+                    Arrays.remove(at: Arrays.count - 1)
+                    Arrays.append(Character(String(LastDigit)))
+                    
+                } else {
+                    FirstDigit = LastDigit
+                    Arrays.remove(at: 0)
+                    Arrays.insert(Character(String(LastDigit)) , at : 0 )
+                    
+                }
+        
+                //}//
+            
+            
+        }
+        
+   // }
+    
+    
+    var Final = ""
+    
+    for n in Arrays {
+        Final = "\(Final)\(n)"
+    }
+    
+    return Final
+    
+}
+
+
+func RemoveFirstAndLast(_ Val : String) -> String {
+    var CharArray = Array(Val)
+//    for n in Val {
+//        CharArray.append(n)
+//    }
+    
+    
+    
+    CharArray.remove(at: 0)
+    
+    
+    if (CharArray.isEmpty == false ) {
+    CharArray.remove(at: CharArray.count - 1)
+    }
+    
+    var FinalValue = ""
+    
+    for n in CharArray {
+        FinalValue = "\(FinalValue)\(n)"
+    }
+    
+    return FinalValue
+   
+    
+}
+
+func MakeDigitsHighest(_ Value : String, _ firstLast : Bool) -> String {
+    var Final = ""
+    
+   
+    var Arrays = Array(Value)
+    
+//    for n in Value {
+//        Array.append(n)
+//    }
+    
+   // if firstLast {
+    
+        Arrays.remove(at: 0)
+        Arrays.insert("9", at: 0)
+   // } else {
+        
+        Arrays.remove(at: Arrays.count - 1)
+
+        Arrays.append("9")
+        
+  //  }
+    
+    for n in Arrays {
+        Final = "\(Final)\(n)"
+    }
+    
+    return Final
+    
+}
+    
+  
+
+func IfOnlyLastAreSame(val : String) -> Bool {
+    
+    if (val.first! == val.last!) {
+        return false
+    } else {
+        return true
+    }
+    
+    
+}
+func IfOnlyLastAre9(val : String) -> Bool {
+   
+    
+    if val != "" {
+    if (val.first! == "9" && val.last! == "9") {
+        return false
+    } else {
+        return true
+    }
+    } else {
+        return false
+    }
+    
+}
+func GetMiddle(_ Val : String) -> Int {
+   
+//    for n in Val {
+//        S.append(n)
+//    }
+   
+    return Int(Double((Val.count - 1) / 2))
+    
+    
+}
+
+
+func MakeITtheHighest(Value : String , LimitsLeft : Int, IfOnly1 : Bool) -> String{
+   
+    
+    var LimitReached = 0
+    var FirstLast = false
+    
+    var Arrays = Array(Value)
+    
+    
+    
+    
+    
+    var Final = ""
+    var FirstCharacters = ""
+    var LastCharacters = ""
+    var Sample = Value
+    
+    for _ in 0..<Value.count {
+        
+       
+           
+        if IfOnly1  {
+            
+//            for n in Value {
+//
+//                Array.append(n)
+//
+//            }
+            
+           
+            Arrays[Int(Double((Value.count - 1) / 2))] = "9"
+            
+            for n in Arrays {
+                Final = "\(Final)\(n)"
+            }
+            break
+               
+        } else {
+        if (Sample != "" && LimitReached <= LimitsLeft) {
+        let Highest = MakeDigitsHighest(Sample , FirstLast) // Makes first and last Highest
+        
+       
+        
+        Sample = RemoveFirstAndLast(Highest)
+        
+        Final = "\(FirstCharacters)\(Highest)\(LastCharacters)"
+        
+        FirstCharacters = "\(FirstCharacters)\(Highest.first!)"
+                 
+        LastCharacters = "\(Highest.last!)\(LastCharacters)"
+        if (FirstLast) {
+            FirstLast = false
+        } else {
+            FirstLast = true
+        }
+            
+          
+          
+            if IfOnlyLastAre9(val: Sample) {
+        
+                LimitReached += 2
+            
+            }
+    
+}
+        
+        }
+        
+        
+        
+    }
+    
+    return Final
+    
+}
+
+
+
+func highestValuePalindrome(_ String : String , _  Digits : Int , _ Limit : Int) -> String {
+
+    if (Limit == 0) {
+        return String
+    }
+     var Try = ""
+   // if !Check(String) {
+        var Value = String
+        var LimitDone = 0
+        var Sample = ""
+        var FirstCharacters = ""
+        var LastCharacters = ""
+        var Final = ""
+    
+        var Some = 0
+       
+        for _ in 0..<Digits {
+         
+            if (LimitDone != Limit) {
+                if IfOnlyLastAreSame(val : Value)  {
+                              LimitDone += 1
+                    
+                    
+                           
+                }
+                Sample = CheckIfFirstEndSame(Number: Value , Limit: Limit)
+                
+//                if Limit - Some >= Digits / 2 && Some != 0 {
+//                    Sample = MakeDigitsHighest(Value, false)
+//                }
+//                Some += 1
+                Final = "\(FirstCharacters)\(Sample)\(LastCharacters)"
+                FirstCharacters = "\(FirstCharacters)\(Sample.first!)"
+                LastCharacters = "\(Sample.last!)\(LastCharacters)"
+                
+            } else {
+                break
+            }
+           
+            Value = RemoveFirstAndLast(Sample)
+            
+            if (Check(Final)) {
+                break
+            }
+            
+        }
+        
+        
+       
+        if Check(Final) {
+           
+            if (LimitDone < Limit) {
+                  return Final
+                let LimitLeftt = Limit - LimitDone
+                var Only1 = false
+                if (Limit == 1) {
+                    Only1 = true
+                }
+                Try = MakeITtheHighest(Value: Final, LimitsLeft: LimitLeftt, IfOnly1: Only1)
+                
+            } else {
+                 Try = (Final)
+            }
+            
+            return Try
+        } else {
+            
+            return "-1"
+        }
+    
+    
+    //} else {
+     
+        
+      
+    //}
+    
+    
+    
+    
+
+
+}
+
+
+print(highestValuePalindrome( "3943", 4  , 2)) // Dont try Limit more than 6 if the digits are not more even
+
